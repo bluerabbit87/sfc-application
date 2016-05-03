@@ -1,0 +1,1 @@
+{"connected_sf": {"Testing": {"egress_port": "60", "name": "Testing", "ingress_port": "63"}, "Endian": {"egress_port": "36", "name": "Endian", "ingress_port": "39"}}, "type": "general", "name": "one-box-br-int", "dpid": "00:00:ee:42:21:d6:e1:44"}
