@@ -24,19 +24,32 @@ from dbus.proxies import Interface
 import json
 import logging
 import logging.handlers
+from neutronclient.v2_0 import client
+from novaclient.client import Client
 from optparse import OptionParser, OptionGroup
 import os
-import pprint
+import pprint 
 from pymongo import MongoClient
 import sys
+
+sys.path.append('../cores')
+sys.path.append('../plugins')
 
 from floodlight.floodlight_agent import OpenFlowHandler
 from ietf_sfc import SFManager, SFFManager, EPManager, VNFFGManager, NSManager, \
     tenantManager, SFCManager
+from openstack.credentials import get_credentials, get_nova_credentials_v2
+from openstack.utils import print_ports, print_values, print_hypervisors
 from ovsdb.OVSDBManager import OVSDBManager
 
-sys.path.append('../cores')
-sys.path.append('../plugins')
+
+
+
+
+
+
+
+
 
 __all__ = []
 __version__ = 0.1
@@ -298,8 +311,6 @@ def main(argv=None):
 
 #                 SFCmanager.deploy_rendored_service_path(renderd_path)
 #                 
-            elif command == "uninstall-ns":
-                SFCmanager.validate_NS()
             
             
             elif command == "status-ns":
@@ -310,6 +321,43 @@ def main(argv=None):
 
             elif command == "init-ns":
                 SFCmanager.init_openflow_switches()
+            
+            elif command == "list-ovs-bridge":
+                result = OVSDBmanager.transact(["Open_vSwitch",{"op":"select","table":"Bridge","where":[]}])
+                pprint.pprint(result)
+#               
+            elif command == "list-ovs-interface":
+                result = OVSDBmanager.transact(["Open_vSwitch",{"op":"select","table":"Interface","where":[]}])
+                pprint.pprint(result)
+            
+            elif command == "list-ovs-port":
+                result = OVSDBmanager.transact(["Open_vSwitch",{"op":"select","table":"Port","where":[]}])
+                pprint.pprint(result)
+            
+            elif command == "list-ovs-controller":
+                result = OVSDBmanager.transact(["Open_vSwitch",{"op":"select","table":"Controller","where":[]}])
+                pprint.pprint(result)
+
+            elif command == "list-neutron-port":
+                credentials = get_credentials()
+                neutron = client.Client(**credentials)
+                ports = neutron.list_ports()
+                print_ports(ports)
+            
+            elif command == "list-neutron-network":
+                credentials = get_credentials()
+                neutron = client.Client(**credentials)
+                netw = neutron.list_networks()
+                print_values(netw, 'networks')
+                
+            elif command == "list-nova-hypervisor":
+                credentials = get_nova_credentials_v2()
+                nova_client = Client(**credentials)
+                
+                hypervisor_id_list = nova_client.hypervisors.list()
+                print_hypervisors(hypervisor_id_list)
+                for hypervisor_id in hypervisor_id_list:
+                    print nova_client.hypervisors.get(hypervisor_id)
                 
             elif command == "ovsdb-testing":
                 # E.g setting a callback and making a call. Note that the callback has to

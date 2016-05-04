@@ -13,7 +13,7 @@ from utils import print_values
 
 credentials = get_credentials()
 neutron = client.Client(**credentials)
-# netw = neutron.list_networks()
+# netw = openstack.list_networks()
 # print_values(netw, 'networks')
 
 ports = neutron.list_ports()

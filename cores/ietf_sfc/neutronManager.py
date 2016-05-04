@@ -15,8 +15,8 @@ networks = neutron.list_networks()
 pprint.pprint(networks)
 ports = neutron.list_ports()
 
-# neutron.
+# openstack.
 pprint.pprint(ports)
 
 # network_id = networks['networks'][0]['id']
-# neutron.delete_network(network_id)
+# openstack.delete_network(network_id)
