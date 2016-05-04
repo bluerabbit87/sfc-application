@@ -43,14 +43,6 @@ from openstack.utils import print_ports, print_values, print_hypervisors
 from ovsdb.OVSDBManager import OVSDBManager
 
 
-
-
-
-
-
-
-
-
 __all__ = []
 __version__ = 0.1
 __date__ = '2015-10-22'

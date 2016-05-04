@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
 '''
 Created on May 3, 2016
 
@@ -7,3 +10,4 @@ Created on May 3, 2016
 if __name__ == '__main__':
     
     pass
+    
