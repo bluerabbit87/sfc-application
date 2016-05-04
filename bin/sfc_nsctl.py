@@ -30,24 +30,13 @@ import pprint
 from pymongo import MongoClient
 import sys
 
-sys.path.append('../cores')
-sys.path.append('../plugins')
-
-
 from floodlight.floodlight_agent import OpenFlowHandler
 from ietf_sfc import SFManager, SFFManager, EPManager, VNFFGManager, NSManager, \
     tenantManager, SFCManager
-from ietf_sfc.OVSDBManager import OVSDBManager
+from ovsdb.OVSDBManager import OVSDBManager
 
-
-
-
-    
-
-
-
-
-
+sys.path.append('../cores')
+sys.path.append('../plugins')
 
 __all__ = []
 __version__ = 0.1
